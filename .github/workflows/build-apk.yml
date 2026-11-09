@@ -25,6 +25,9 @@ jobs:
         run: |
           mkdir project
           unzip -o *.zip -d project
+      - name: Fix Java compatibility
+        run: |
+          sed -i '/^android {/a\    compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }' project/app/build.gradle.kts
 
       - name: Build APK
         run: gradle -p project --no-daemon :app:assembleDebug
