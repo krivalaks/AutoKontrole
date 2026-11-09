@@ -1,3 +1,4 @@
+
 name: Build AutoKontrole APK
 
 on:
@@ -15,9 +16,6 @@ jobs:
           java-version: '17'
 
       - uses: gradle/actions/setup-gradle@v4
-
-      - name: Install Gradle
-        uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
 
@@ -25,9 +23,26 @@ jobs:
         run: |
           mkdir project
           unzip -o *.zip -d project
-      - name: Fix Java compatibility
+
+      - name: Fix Java and Kotlin versions
         run: |
-          sed -i '/^android {/a\    compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }' project/app/build.gradle.kts
+          python3 - <<'PY'
+          p = "project/app/build.gradle.kts"
+          s = open(p).read()
+          s = s.replace(
+              "android {",
+              """android {
+              compileOptions {
+                  sourceCompatibility = JavaVersion.VERSION_17
+                  targetCompatibility = JavaVersion.VERSION_17
+              }
+              kotlinOptions {
+                  jvmTarget = "17"
+              }""",
+              1
+          )
+          open(p, "w").write(s)
+          PY
 
       - name: Build APK
         run: gradle -p project --no-daemon :app:assembleDebug
