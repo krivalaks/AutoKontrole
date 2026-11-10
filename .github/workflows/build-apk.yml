@@ -18,11 +18,10 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
-
-      - name: Extract project
-        run: |
-          mkdir project
-          unzip -o *.zip -d project
+        - name: Extract project
+          run: |
+            mkdir -p project
+            unzip -o "AutoKontrole-Android-v0.7.0-telefono-isdestymas.zip" -d project
 
       - name: Fix Java and Kotlin versions
         run: |
