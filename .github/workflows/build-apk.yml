@@ -20,9 +20,8 @@ jobs:
           gradle-version: '8.9'
         - name: Extract project
           run: |
-            mkdir -p project
-            unzip -o "AutoKontrole-Android-v0.7.0-telefono-isdestymas.zip" -d project
-
+            mkdir -p projectų
+            unzip -o "AutoKontrole-Android-v0.8.0-su-31-transporto-priemone.zip" -d project
       - name: Fix Java and Kotlin versions
         run: |
           python3 - <<'PY'
