@@ -23,7 +23,7 @@ jobs:
       - name: Extract project
         run: |
           mkdir -p project
-          unzip -o "AutoKontrole-Android-v0.8.0-su-31-transporto-priemone.zip" -d project
+          unzip -o "AutoKontrole-Android-v0.9.0-paspaudziami-filtrai.zip" -d project
 
       - name: Fix Java and Kotlin versions
         run: |
